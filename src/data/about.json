@@ -1,0 +1,23 @@
+{
+  "paragraphs": [
+    [
+      { "type": "text", "content": "I'm a Computer Science student at Vasavi College of Engineering. My journey began at a college hackathon — my first build, small but enough to get me started." }
+    ],
+    [
+      { "type": "text", "content": "From there I started exploring things: " },
+      { "type": "keyword", "content": "backend systems", "icon": "Server" },
+      { "type": "text", "content": ", " },
+      { "type": "keyword", "content": "mobile apps", "icon": "Smartphone" },
+      { "type": "text", "content": ", " },
+      { "type": "keyword", "content": "web interfaces", "icon": "Globe" },
+      { "type": "text", "content": ", " },
+      { "type": "keyword", "content": "AI", "icon": "Cpu" },
+      { "type": "text", "content": ", " },
+      { "type": "keyword", "content": "IoT", "icon": "Wifi" },
+      { "type": "text", "content": ". Not because a course told me to, but because of curiosity and an urge to build things that make life simpler." }
+    ],
+    [
+      { "type": "quote", "content": "Simple is harder than complex, and more important too." }
+    ]
+  ]
+}

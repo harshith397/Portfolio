@@ -1,0 +1,2 @@
+export const GLASS = "bg-glass-fill backdrop-blur-glass backdrop-saturate-glass border border-glass-border shadow-glass";
+export const GLASS_LG = "lg:bg-glass-fill lg:backdrop-blur-glass lg:backdrop-saturate-glass lg:border lg:border-glass-border lg:shadow-glass";

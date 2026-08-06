@@ -1,0 +1,110 @@
+[
+  {
+    "id": "sgpa-calculator",
+    "title": "SGPA Calculator",
+    "tagline": "GPA calculator built for VCE students with semester-wise grade tracking",
+    "type": "Web App",
+    "image": "/sgpa.png",
+    "banner": "/sgpa-ban.png",
+    "tag": "Completed",
+    "featured": true,
+    "duration": "1 Week",
+    "role": "Solo Developer",
+    "screenshotType": "mobile",
+    "screenshots": [
+      "/sgpa-screen-1.png",
+      "/sgpa-screen-2.png",
+      "/sgpa-screen-3.png"
+    ],
+    "problem": "VCE students had no dedicated tool to simulate SGPA. Generic calculators require manual subject entry every time, and the college portal exposes no grade simulation — making it tedious to plan grades before results.",
+    "solution": "Built a fully static React app that auto-populates subjects per semester from a local syllabus JSON. Uses a one-time O(N) flatten on load and an O(1) hashmap for grade slider updates — zero UI blocking. Cascading state invalidation prevents data collisions across dropdowns. A GitHub Actions pipeline keeps syllabus data current by downloading PDFs from the college portal, slicing scheme pages into images, and parsing them with a Groq vision model — fully automated, no manual updates.",
+    "results": [
+      "Zero backend — fully static architecture, no server costs or infra overhead, scales to any number of concurrent users without configuration",
+      "Automated syllabus sync via CI pipeline eliminates manual JSON maintenance across semesters",
+      "Opt-out subject selection reduces friction — core subjects pre-populated, electives removed as needed rather than built from scratch"
+    ],
+    "architecture_url": null,
+    "demo_url": "https://sgpa.vce14.me",
+    "repo_url": "https://github.com/harshith397/scgpa-cal-vce.git",
+    "tech_stack": [
+      "React",
+      "Tailwind CSS"
+    ],
+    "architecture_hotspots": null,
+    "project_journal": "The starting point wasn't the UI — it was the data shape. The college syllabus lives in a deeply nested structure: Program → Department → Semester → Subject. If I queried that tree on every slider interaction, the UI would block on every keystroke.\n\nThe fix was a <highlight color='blue'>one-time O(N) flattening pass on load</highlight> — convert the tree into a flat array of subject objects once, then use an <highlight color='yellow'>O(1) hashmap for all subsequent grade lookups</highlight>. After that, every slider update is just a key access.\n\nThe next problem was state collisions. If a student picks Semester 3, loads subjects, then switches to a different program — the old semester and grade state is still alive. That produces <highlight color='yellow'>mathematically impossible SGPA outputs</highlight>. Solution: **cascading invalidation** — any upstream dropdown change explicitly wipes all downstream state before the new data loads.\n\nSubject identity was a quiet bug waiting to happen. Open electives across semesters share placeholder course codes, so using the course code as a React key would cause collisions. I switched to **subject.name as the primary key** and ran it through a two-pass regex title-case formatter to normalize inconsistent casing from the source data.\n\nThe part I didn't expect to build was the <highlight color='blue'>automated syllabus pipeline</highlight>. The college portal updates its syllabus PDFs without any API or notification. Manual JSON updates would rot immediately. So I built a GitHub Actions workflow that runs daily — downloads the PDFs, slices the scheme pages into images, and sends them to a **Groq vision model** for parsing. On success it writes back to the repo with a bot commit and fires a Discord alert. The calculator stays current without me touching it."
+  },
+  {
+    "id": "attendance-portal",
+    "title": "VCE Student Portal",
+    "tagline": "Attendance calculator and syllabus viewer that scraped student data directly from the college ERP portal.",
+    "type": "Full Stack",
+    "image": "/college-site.png",
+    "banner": "/college-site-ban.png",
+    "tag": "Discontinued",
+    "featured": true,
+    "duration": "1 Month",
+    "role": "Solo Developer",
+    "screenshotType": "web",
+    "screenshots": [
+      "/clg-screen-1.png",
+      "/clg-screen-2.png",
+      "/clg-screen-3.png",
+      "/clg-screen-4.png",
+      "/clg-screen-5.png"
+    ],
+    "problem": "The college ERP portal had no way to calculate attendance percentage or view syllabus in a usable format. Students had to manually count classes from raw HTML tables.",
+    "solution": "Built a FastAPI proxy that scraped the ERP login flow, parsed attendance HTML, and served it to a React frontend. Syllabus PDFs were manually extracted via DeepSeek page by page into JSON and served as structured data.",
+    "results": [
+      "Automated attendance percentage calculation from live ERP data",
+      "Structured syllabus viewer from manually extracted JSON",
+      "Discontinued when college switched from image CAPTCHA to Google reCAPTCHA, breaking the proxy login flow"
+    ],
+    "architecture_url": null,
+    "demo_url": null,
+    "repo_url": "https://github.com/harshith397/VCE.git",
+    "tech_stack": [
+      "React",
+      "TypeScript",
+      "FastAPI",
+      "Redis",
+      "PostgreSQL"
+    ],
+    "architecture_hotspots": null,
+    "project_journal": null
+  },
+  {
+    "id": "ai-email-generator",
+    "title": "AI Email Generator",
+    "tagline": "AI-Powered Generator based on user prompts",
+    "type": "Full Stack",
+    "banner": "/email-gen-ban.png",
+    "image": "/email-gen.png",
+    "tag": "Completed",
+    "featured": false,
+    "duration": "24 Hours",
+    "role": "Solo Developer",
+    "screenshotType": "web",
+    "screenshots": [
+      "/email-screen-1.png",
+      "/email-screen-2.png"
+    ],
+    "problem": "Writing a professional email from scratch takes longer than it should. Getting the tone right, structuring it properly, adding a CTA — it's a lot of small decisions that slow you down, especially when you're in a hurry.",
+    "solution": "Built at a college hackathon — a single-dashboard app where you fill in a guided form with recipient details, subject, purpose, tone, CTA, and signature. That data goes to a Flask backend which builds a prompt and calls the Groq LLM API. The generated email shows up inline with a copy-to-clipboard button. Vite proxies frontend requests to Flask in dev, and Flask serves the built frontend in production.",
+    "results": [
+      "First working full stack project — React form talking to a Flask API talking to an LLM, all wired together end to end",
+      "Learned how to handle CORS, environment variables across two runtimes, and Vite proxy config the hard way — by running into each one",
+      "Deployed to Render with a live working URL by the end of the hackathon"
+    ],
+    "architecture_url": null,
+    "demo_url": null,
+    "repo_url": "https://github.com/harshith397/email_static.git",
+    "tech_stack": [
+      "React",
+      "Tailwind CSS",
+      "Flask",
+      "Groq API"
+    ],
+    "architecture_hotspots": null,
+    "project_journal": "This was built at a college hackathon. We had a day, a problem statement, and no real plan.\n\nThe idea was simple — instead of staring at a blank email and figuring out what to write, just fill in a form. Recipient, purpose, tone, CTA. Hit generate. Done.\n\nSimple idea, but I had never wired a React frontend to a Python backend before. The first hour was just figuring out why the fetch call wasn't reaching Flask. Turns out <highlight color='yellow'>CORS was blocking everything</highlight> — one line fix, but I didn't know that yet. Then the `.env` file wasn't loading because the frontend and backend were two separate runtimes and I was only setting it in one place. Small things, but each one took time.\n\nThe **Groq API call** itself was the easiest part, which felt backwards. A few lines of Python, pass the form data as a prompt, get the email back. The hard part was everything around it — getting the data from the form to the backend cleanly, handling errors when the API key wasn't set, making sure the generated text rendered properly in the preview.\n\nBy the end we had something that actually worked. Form inputs go in, a proper email comes out, you copy it and you're done. We submitted it, didn't win, but it worked.\n\nLooking back, the project itself isn't complex. But it was the first time I understood what <highlight color='blue'>full stack actually means in practice</highlight> — not just frontend and backend existing separately, but making them talk to each other without things breaking. That's what this project taught me. It was my starting point."
+  }
+]
