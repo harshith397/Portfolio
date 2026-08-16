@@ -15,9 +15,6 @@
       { "type": "text", "content": ", " },
       { "type": "keyword", "content": "IoT", "icon": "Wifi" },
       { "type": "text", "content": ". Not because a course told me to, but because of curiosity and an urge to build things that make life simpler." }
-    ],
-    [
-      { "type": "quote", "content": "Simple is harder than complex, and more important too." }
     ]
   ]
 }

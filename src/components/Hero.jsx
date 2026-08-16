@@ -96,12 +96,13 @@ const Hero = ({ id }) => {
           </p>
 
           {/* Quote */}
-          <p
+          {quote && (<p
             className="text-base md:text-lg text-gray-400 max-w-md mb-8 leading-relaxed"
             style={{ fontFamily: "Georgia, serif", fontStyle: "italic" }}
           >
             "{quote}"
-          </p>
+          </p>)}
+          
         </div>
       </div>
     </section>
