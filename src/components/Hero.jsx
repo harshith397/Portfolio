@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import GridBackground from "./GridBackground";
 import heroData from "../data/hero.json";
 
@@ -31,6 +32,8 @@ const PolaroidPhoto = ({ src, alt }) => {
 
 const Hero = ({ id }) => {
   const { name, role, quote, profileImage, resumeUrl, greetings } = heroData;
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
 
   const [currentGreetingIndex, setCurrentGreetingIndex] = useState(0);
 
@@ -53,7 +56,13 @@ const Hero = ({ id }) => {
     >
       <GridBackground color="#000" opacity={0.07} size={60} />
 
-      <div className="relative z-10 flex flex-col md:flex-row items-center md:items-center gap-12 md:gap-20 max-w-6xl mx-auto w-full">
+      <motion.div
+        ref={sectionRef}
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
+        className="relative z-10 flex flex-col md:flex-row items-center md:items-center gap-12 md:gap-20 max-w-6xl mx-auto w-full"
+      >
         {/* Polaroid photo — sits to the left on md+, above text on mobile */}
         <PolaroidPhoto src={profileImage} alt={name} />
 
@@ -104,7 +113,7 @@ const Hero = ({ id }) => {
           </p>)}
           
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };

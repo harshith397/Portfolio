@@ -92,18 +92,31 @@ const CategoryRow = ({ label, skills, index }) => {
 
 const Skills = ({ id }) => {
   const { categories } = skillsData;
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
 
   return (
     <section id={id} className="w-full px-8 md:px-20 lg:px-32 py-22 bg-white">
       <div className="max-w-6xl mx-auto">
         {/* Section label */}
-        <div className="mb-8">
+        <motion.div
+          ref={sectionRef}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
+          className="mb-8"
+        >
           <RevealHeading text="Skills" />
           <div className="mt-2 w-10 h-[1.5px] bg-zinc-200" />
-        </div>
+        </motion.div>
 
         {/* Category rows */}
-        <div className="flex flex-col gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1], delay: 0.06 }}
+          className="flex flex-col gap-6"
+        >
           {categories.map((cat, i) => (
             <CategoryRow
               key={cat.label}
@@ -112,7 +125,7 @@ const Skills = ({ id }) => {
               index={i}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

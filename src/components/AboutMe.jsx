@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import { Server, Smartphone, Globe, Cpu, Wifi } from "lucide-react";
 import aboutData from "../data/about.json";
 import RevealHeading from "./RevealHeading";
@@ -53,6 +54,27 @@ const renderSegment = (segment, index) => {
   }
 };
 
+const AboutParagraph = ({ para, paraIndex }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
+
+  return (
+    <motion.p
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        duration: 0.35,
+        ease: [0.33, 1, 0.68, 1],
+        delay: paraIndex * 0.08,
+      }}
+      className="text-lg md:text-2xl lg:text-lg text-zinc-600 leading-relaxed font-light"
+    >
+      {para.map((segment, segIndex) => renderSegment(segment, segIndex))}
+    </motion.p>
+  );
+};
+
 
 const AboutMe = ({ id }) => {
   const { paragraphs } = aboutData;
@@ -60,7 +82,7 @@ const AboutMe = ({ id }) => {
   return (
     <section
       id={id}
-      className="w-full px-8 md:px-20 lg:px-34 py-20 bg-white"
+      className="w-full px-8 md:px-20 lg:px-34 py-15 bg-white"
     >
       <div className="max-w-6xl mx-auto">
 
@@ -73,12 +95,7 @@ const AboutMe = ({ id }) => {
         {/* Multi-paragraph block */}
         <div className="flex flex-col gap-8">
           {paragraphs.map((para, paraIndex) => (
-            <p
-              key={paraIndex}
-              className="text-1xl md:text-3xl lg:text-2xl text-zinc-600 leading-relaxed font-light"
-            >
-              {para.map((segment, segIndex) => renderSegment(segment, segIndex))}
-            </p>
+            <AboutParagraph key={paraIndex} para={para} paraIndex={paraIndex} />
           ))}
         </div>
 

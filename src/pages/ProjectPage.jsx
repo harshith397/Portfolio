@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import projectsData from "../data/projects_data.json";
 import CyclingButton from "../components/CyclingButton";
 import RevealHeading from "../components/RevealHeading";
@@ -36,15 +36,21 @@ const ICON_MAP = {
 };
 
 // ── Fade up animation wrapper ──────────────────────────────────
-const FadeUp = ({ children, delay = 0 }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, ease: [0.33, 1, 0.68, 1], delay }}
-  >
-    {children}
-  </motion.div>
-);
+const FadeUp = ({ children, delay = 0 }) => {
+  const fadeRef = useRef(null);
+  const isInView = useInView(fadeRef, { once: true, margin: "-10% 0px" });
+
+  return (
+    <motion.div
+      ref={fadeRef}
+      initial={{ opacity: 0, y: 20 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1], delay }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 // ── Mobile image viewer (3 at a time, arrows if >3) ───────────
 const MobileImageViewer = ({ screenshots }) => {

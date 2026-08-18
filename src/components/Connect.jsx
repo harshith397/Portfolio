@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import RevealHeading from "./RevealHeading";
 import CyclingButton from "./CyclingButton"
@@ -242,22 +242,47 @@ const SocialPill = ({ href, label, svgPath, viewBox = "0 0 24 24", iconBg = "#00
 
 
 // ── Main ───────────────────────────────────────────────────────
-const Contact = ({ id }) => (
-  <section id={id} className="w-full px-8 md:px-20 lg:px-32 py-24 bg-white">
-    <div className="max-w-6xl mx-auto flex flex-col items-center text-center gap-12">
+const Contact = ({ id }) => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
 
-      <div className="w-full">
+  return (
+  <section id={id} className="w-full px-8 md:px-20 lg:px-32 py-24 bg-white">
+    <div ref={sectionRef} className="max-w-6xl mx-auto flex flex-col items-center text-center gap-12">
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
+        className="w-full"
+      >
         <RevealHeading text="Connect" />
         <div className="mt-2 w-10 h-[1.5px] bg-zinc-200" />
-      </div>
+      </motion.div>
 
-      <h2 className="text-3xl md:text-5xl lg:text-6xl font-medium text-zinc-800 leading-tight max-w-2xl">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1], delay: 0.06 }}
+        className="text-3xl md:text-5xl lg:text-6xl font-medium text-zinc-800 leading-tight max-w-2xl"
+      >
         Let's work together.
-      </h2>
+      </motion.h2>
 
-      <CyclingButton />
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1], delay: 0.1 }}
+      >
+        <CyclingButton />
+      </motion.div>
 
-      <div className="flex flex-wrap justify-center gap-3">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1], delay: 0.14 }}
+        className="flex flex-wrap justify-center gap-3"
+      >
         <SocialPill
         iconBg="#000000"
           href="https://x.com/harrshth_24"
@@ -282,25 +307,34 @@ const Contact = ({ id }) => (
           label="Email"
           svgPath="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
         />
-      </div>
+      </motion.div>
 
-      <a
+      <motion.a
         href="/Resume.pdf"
         target="_blank"
         className="inline-flex items-center gap-2 rounded-full border border-zinc-200 px-6 py-2 text-sm font-medium text-zinc-600 hover:border-black hover:bg-black hover:text-white transition-all duration-200"
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1], delay: 0.18 }}
       >
         View Resume
         <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
         </svg>
-      </a>
+      </motion.a>
 
-      <span className="text-xs text-zinc-400 border border-zinc-200 rounded-full px-4 py-1.5">
+      <motion.span
+        className="text-xs text-zinc-400 border border-zinc-200 rounded-full px-4 py-1.5"
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1], delay: 0.22 }}
+      >
         Hyderabad, India
-      </span>
+      </motion.span>
 
     </div>
   </section>
 );
+};
 
 export default Contact;

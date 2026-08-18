@@ -7,8 +7,22 @@ import { SiGithub } from "@icons-pack/react-simple-icons";
 const featured = projectsData.filter((p) => p.featured);
 
 // ── Desktop Card ──────────────────────────────────────────────
-const DesktopCard = ({ project }) => (
-  <div className="group flex flex-col rounded-2xl border border-zinc-200 bg-white overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300">
+const DesktopCard = ({ project, index }) => {
+  const cardRef = useRef(null);
+  const isCardInView = useInView(cardRef, { once: true, margin: "-10% 0px" });
+
+  return (
+  <motion.div
+    ref={cardRef}
+    initial={{ opacity: 0, y: 20 }}
+    animate={isCardInView ? { opacity: 1, y: 0 } : {}}
+    transition={{
+      duration: 0.35,
+      ease: [0.33, 1, 0.68, 1],
+      delay: index * 0.08,
+    }}
+    className="group flex flex-col rounded-2xl border border-zinc-200 bg-white overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300"
+  >
     {/* Image */}
     <div className="h-64 w-full overflow-hidden bg-zinc-100">
       <img
@@ -74,8 +88,9 @@ const DesktopCard = ({ project }) => (
         </Link>
       </div>
     </div>
-  </div>
-);
+  </motion.div>
+  );
+};
 
 // ── Mobile Squircle Card ───────────────────────────────────────
 const SquircleCard = ({ project }) => (
@@ -208,29 +223,47 @@ const MobileSwiper = ({ projects }) => {
 
 // ── Main Projects Section ──────────────────────────────────────
 const Projects = ({ id }) => {
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-10% 0px" });
+
   return (
     <section id={id} className="w-full px-8 md:px-20 lg:px-32 py-24 bg-white">
-      <div className="max-w-6xl mx-auto">
+      <div ref={sectionRef} className="max-w-6xl mx-auto">
         {/* Section label */}
-        <div className="mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1] }}
+          className="mb-10"
+        >
           <RevealHeading text="Featured Projects" />
           <div className="mt-2 w-10 h-[1.5px] bg-zinc-200" />
-        </div>
+        </motion.div>
 
         {/* Mobile swiper */}
-        <div className="md:hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1], delay: 0.06 }}
+          className="md:hidden"
+        >
           <MobileSwiper projects={featured} />
-        </div>
+        </motion.div>
 
         {/* Desktop grid */}
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-2 gap-6">
-          {featured.map((project) => (
-            <DesktopCard key={project.id} project={project} />
+          {featured.map((project, index) => (
+            <DesktopCard key={project.id} project={project} index={index} />
           ))}
         </div>
 
         {/* View all link */}
-        <div className="mt-12 flex justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.35, ease: [0.33, 1, 0.68, 1], delay: 0.16 }}
+          className="mt-12 flex justify-center"
+        >
           <Link
             to="/projects"
             className="flex items-center gap-1 text-sm font-medium text-zinc-500 hover:text-black transition-colors underline underline-offset-4"
@@ -247,7 +280,7 @@ const Projects = ({ id }) => {
               <path d="M7 17L17 7M17 7H7M17 7v10" />
             </svg>
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
