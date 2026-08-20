@@ -7,7 +7,7 @@ import {
   SiTailwindcss,
   SiFastapi,
   SiNodedotjs,
-  SiLangchain,
+  
   SiHuggingface,
   SiPostgresql,
   SiMongodb,
@@ -23,6 +23,7 @@ import {
   SiMqtt,
   SiArduino,
 } from "@icons-pack/react-simple-icons";
+import { SiOllama } from '@icons-pack/react-simple-icons';
 import skillsData from "../data/skills.json";
 import RevealHeading from "./RevealHeading";
 const ICON_MAP = {
@@ -32,7 +33,6 @@ const ICON_MAP = {
   SiTailwindcss: SiTailwindcss,
   SiFastapi: SiFastapi,
   SiNodedotjs: SiNodedotjs,
-  SiLangchain: SiLangchain,
   SiHuggingface: SiHuggingface,
   SiPostgresql: SiPostgresql,
   SiMongodb: SiMongodb,
@@ -47,6 +47,7 @@ const ICON_MAP = {
   SiC: SiC,
   SiJava: SiOpenjdk,
   SiArduino: SiArduino,
+  SiOllama: SiOllama
 };
 
 const SkillPill = ({ name, icon, color }) => {

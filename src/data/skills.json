@@ -27,10 +27,7 @@
     {
       "label": "AI & ML",
       "skills": [
-        { "name": "LLMs", "icon": null, "color": null },
-        { "name": "LangChain", "icon": "SiLangchain", "color": "#1C3C3C" },
-        { "name": "Hugging Face", "icon": "SiHuggingface", "color": "#FFD21E" },
-        {"name": "RAG", "icon": null, "color": null }
+        {"name": "Ollama", "icon": "SiOllama", "color": null }
       ]
     },
     {
@@ -46,7 +43,6 @@
       "skills": [
         { "name": "Docker", "icon": "SiDocker", "color": "#2496ED" },
         { "name": "Git", "icon": "SiGit", "color": "#F05032" },
-        { "name": "Linux", "icon": "SiLinux", "color": "#FCC624" },
         { "name": "GitHub Actions", "icon": "SiGithubactions", "color": "#2088FF" }
       ]
     },
