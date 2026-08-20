@@ -1,7 +1,7 @@
 {
   "name": "Harshith",
   "role": "Computer Science Engineer",
-  "about": "A {age} year old {role} based in Hyderabad. I build to solve everyday problems for people around me.",
+  "about": "A {age} year old {role} based in Hyderabad. I build to solve problems for people around me.",
   "profileImage": "/me.jpeg",
   "resumeUrl": "/Resume.pdf",
   "greetings": ["Hello,", "Hola,", "Namaste,", "Bonjour,", "Guten Tag,", "Ciao,"],
