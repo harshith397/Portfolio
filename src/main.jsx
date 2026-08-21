@@ -11,10 +11,7 @@ createRoot(document.getElementById('root')).render(
     <ReactLenis root
   options={{
     lerp: 0.05,
-    wheelMultiplier: 0.3,
-    syncTouch: true,        // For newer versions of Lenis
-    smoothTouch: true,      // Fallback fallback if using an older package version
-    touchMultiplier: 1.8,
+    wheelMultiplier: 0.3
   }}>
       <App />
     </ReactLenis>
