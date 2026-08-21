@@ -10,8 +10,8 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ReactLenis root
   options={{
-    lerp: 0.08,
-    wheelMultiplier: 0.5,
+    lerp: 0.05,
+    wheelMultiplier: 0.3,
   }}>
       <App />
     </ReactLenis>
