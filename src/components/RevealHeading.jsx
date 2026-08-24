@@ -45,7 +45,7 @@ const RevealHeading = ({ text }) => {
       {text.split(" ").map((word, wordIndex) => (
         <span
           key={wordIndex}
-          className="inline-flex whitespace-nowrap text-xs md:text-sm lg:text-sm font-semibold tracking-[0.15em] md:tracking-[0.1em] lg:tracking-[0.1em] uppercase text-zinc-400"
+          className="inline-flex whitespace-nowrap text-sm md:text-sm lg:text-sm font-semibold tracking-[0.15em] md:tracking-[0.1em] lg:tracking-[0.1em] uppercase text-zinc-400"
         >
           {word.split("").map((char, charIndex) => (
             <motion.span

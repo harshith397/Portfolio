@@ -4,6 +4,7 @@ import { motion, useInView } from "framer-motion";
 import projectsData from "../data/projects_data.json";
 import CyclingButton from "../components/CyclingButton";
 import RevealHeading from "../components/RevealHeading";
+import HighlightText from "../components/HighlightText";
 import {
   SiReact, SiFastapi, SiDocker, SiPostgresql, SiRedis,
   SiMongodb, SiTailwindcss, SiFlask, SiNodedotjs,
@@ -128,26 +129,6 @@ const SectionLabel = ({ text }) => (
   </div>
 );
 
-// ── Journal renderer ───────────────────────────────────────────
-const renderJournal = (text) => {
-  if (!text) return null;
-  const parts = text.split(/(<highlight color='.*?'>.*?<\/highlight>|\*\*.*?\*\*|\n\n)/g);
-  return parts.map((part, i) => {
-    if (part === "\n\n") {
-      // Replaces simple line break with a block element that adds vertical margin/padding
-      return <div key={i} className="h-6" />; // Adjust `h-4` to `h-6` or `h-8` for larger spacing
-    }
-    if (part.startsWith("<highlight")) {
-      const color = part.match(/color='(.*?)'/)?.[1] || "yellow";
-      const content = part.replace(/<highlight.*?>|<\/highlight>/g, "");
-      const cls = color === "blue" ? "bg-blue-50 text-blue-800" : "bg-yellow-50 text-yellow-800";
-      return <span key={i} className={`${cls} px-1 rounded font-medium`}>{content}</span>;
-    }
-    if (part.startsWith("**"))
-      return <strong key={i} className="font-bold text-black">{part.replace(/\*\*/g, "")}</strong>;
-    return <span key={i}>{part}</span>;
-  });
-};
 
 // ── Main page ──────────────────────────────────────────────────
 const ProjectPage = () => {
@@ -191,7 +172,7 @@ const ProjectPage = () => {
             </h1>
           </FadeUp>
           <FadeUp delay={0.3}>
-            <p className="text-lg md:text-xl text-zinc-500 font-light leading-relaxed max-w-2xl mb-8">
+            <p className="text-lg md:text-xl text-zinc-800 font-light leading-relaxed max-w-2xl mb-8">
               {project.tagline}
             </p>
           </FadeUp>
@@ -243,22 +224,22 @@ const ProjectPage = () => {
               <div className="flex flex-col gap-10 max-w-4xl">
                 {project.problem && (
                   <div>
-                    <p className="text-xs font-semibold tracking-widest uppercase text-zinc-400 mb-3">Problem</p>
-                    <p className="text-lg md:text-2xl lg:text-lg text-zinc-600 font-light leading-relaxed">{project.problem}</p>
+                    <p className="text-sm font-semibold tracking-widest uppercase text-zinc-400 mb-3">Problem</p>
+                    <p className="text-base md:text-2xl lg:text-lg font-normal text-zinc-800  leading-relaxed">{project.problem}</p>
                   </div>
                 )}
                 {project.solution && (
                   <div>
-                    <p className="text-xs font-semibold tracking-widest uppercase text-zinc-400 mb-3">Solution</p>
-                    <p className="text-lg md:text-2xl lg:text-lg text-zinc-600 font-light leading-relaxed">{project.solution}</p>
+                    <p className="text-sm font-semibold tracking-widest uppercase text-zinc-400 mb-3">Solution</p>
+                    <p className="text-base md:text-2xl lg:text-lg text-zinc-800 font-normal leading-relaxed">{project.solution}</p>
                   </div>
                 )}
                 {project.results?.length > 0 && (
                   <div>
-                    <p className="text-xs font-semibold tracking-widest uppercase text-zinc-400 mb-3">Result</p>
+                    <p className="text-sm font-semibold tracking-widest uppercase text-zinc-400 mb-3">Result</p>
                     <ul className="flex flex-col gap-2">
                       {project.results.map((r, i) => (
-                        <li key={i} className="flex items-start gap-3 text-lg text-zinc-600 font-light">
+                        <li key={i} className="flex items-start gap-3 text-base md:text-2xl lg:text-lg text-zinc-800 font-normal">
                           <span className="mt-2 w-1.5 h-1.5 rounded-full bg-zinc-400 shrink-0" />
                           {r}
                         </li>
@@ -319,10 +300,10 @@ const ProjectPage = () => {
           <FadeUp delay={0.1}>
             <div className="mb-20 max-w-4xl">
               <SectionLabel text="Engineering Log" />
-              <div className="text-lg text-zinc-600 font-light leading-relaxed">
-                {renderJournal(project.project_journal)}
+              <div className="text-base md:text-2xl lg:text-lg text-zinc-800 font-normal leading-relaxed">
+                <HighlightText text={project.project_journal} />
               </div>
-              <div className="mt-12 text-center opacity-30 text-2xl font-serif italic">fin.</div>
+              {/*<div className="mt-12 text-center opacity-30 text-2xl font-serif italic">fin.</div>*/}
             </div>
           </FadeUp>
         )}
@@ -330,9 +311,9 @@ const ProjectPage = () => {
         {/* CTA */}
         <FadeUp delay={0.1}>
           <div className="border-t border-zinc-100 pt-20 flex flex-col items-center text-center gap-8">
-            <p className="text-2xl md:text-3xl font-light text-zinc-700 max-w-lg leading-relaxed">
+            <p className="text-xl md:text-3xl font-light text-zinc-800 max-w-lg leading-relaxed">
               Want to know about my experience and projects?{" "}
-              <span className="text-zinc-400 italic" style={{ fontFamily: "Georgia, serif" }}>
+              <span className="text-zinc-500 italic" style={{ fontFamily: "Georgia, serif" }}>
                 Get in touch.
               </span>
             </p>
