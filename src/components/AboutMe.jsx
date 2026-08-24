@@ -37,7 +37,7 @@ const renderSegment = (segment, index) => {
       return (
         <span key={index} className="inline-flex items-baseline">
           <InlineIcon name={segment.icon} />
-          <MarkerSpan><span className="font-semibold text-zinc-800">{segment.content}</span></MarkerSpan>
+          <MarkerSpan><span className="font-black text-zinc-700">{segment.content}</span></MarkerSpan>
         </span>
       );
     case "quote":
