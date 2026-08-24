@@ -3,6 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { Server, Smartphone, Globe, Cpu, Wifi } from "lucide-react";
 import aboutData from "../data/about.json";
 import RevealHeading from "./RevealHeading";
+import MarkerSpan from "./MarkerSpan";
 const ICON_MAP = {
   Server:     { component: Server,     color: "#3b82f6", rotate: -10 },
   Smartphone: { component: Smartphone, color: "#8b5cf6", rotate: 8  },
@@ -36,7 +37,7 @@ const renderSegment = (segment, index) => {
       return (
         <span key={index} className="inline-flex items-baseline">
           <InlineIcon name={segment.icon} />
-          <span className="font-medium text-zinc-700">{segment.content}</span>
+          <MarkerSpan><span className="font-semibold text-zinc-800">{segment.content}</span></MarkerSpan>
         </span>
       );
     case "quote":
@@ -68,7 +69,7 @@ const AboutParagraph = ({ para, paraIndex }) => {
         ease: [0.33, 1, 0.68, 1],
         delay: paraIndex * 0.08,
       }}
-      className="text-base md:text-2xl lg:text-lg text-zinc-800 leading-relaxed font-light"
+      className="text-base md:text-2xl lg:text-lg text-zinc-800 leading-relaxed font-normal"
     >
       {para.map((segment, segIndex) => renderSegment(segment, segIndex))}
     </motion.p>
