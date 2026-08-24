@@ -68,7 +68,7 @@ const AboutParagraph = ({ para, paraIndex }) => {
         ease: [0.33, 1, 0.68, 1],
         delay: paraIndex * 0.08,
       }}
-      className="text-lg md:text-2xl lg:text-lg text-zinc-600 leading-relaxed font-light"
+      className="text-base md:text-2xl lg:text-lg text-zinc-800 leading-relaxed font-light"
     >
       {para.map((segment, segIndex) => renderSegment(segment, segIndex))}
     </motion.p>
